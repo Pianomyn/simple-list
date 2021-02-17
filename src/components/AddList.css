@@ -1,0 +1,15 @@
+.inLine {
+  display: flex;
+  flex-direction: row;
+}
+
+.textBox {
+  width: 88%;
+  height: 38px;
+  text-align: center;
+}
+
+.addButton {
+  width: 12%;
+  border-radius: 0 !important;
+}

@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
-import '../App.css';
-import AllLists from './AllLists';
-import AddList from './AddList';
+import React, { Component } from "react";
+import "./Sidebar.css";
+import AllLists from "./AllLists";
+import AddList from "./AddList";
 
 class Sidebar extends Component {
-    state = {  }
-    render() { 
-        return ( <div><h1> this is the sidebar</h1><AllLists/><AddList onAddList = {() => this.props.onAddList}/></div> );
-    }
+
+  render() {
+    return (
+      <div className = "sideBarBox">
+        <AllLists lists={this.props.lists} onDeleteList={(listName) => this.props.onDeleteList(listName)}/>
+        <AddList onAddList={(newName) => this.props.onAddList(newName)} />
+      </div>
+    );
+  }
 }
 
- 
 export default Sidebar;

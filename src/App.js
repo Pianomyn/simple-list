@@ -4,14 +4,36 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 
 class App extends Component {
-  state = { lists: ["Reminders", "Daily"] };
+  state = { lists: [] };
 
-  handleAddList() {}
+  handleAddList(newName) {
+    console.log(newName);
+    if (newName === "") {
+      console.log("A list must have a name");
+      return;
+    }
+    const { lists } = this.state;
+    lists.map((l) => l.toLowerCase()).includes(newName.toLowerCase())
+      ? console.log("A list with this name already exists")
+      : lists.push(newName);
+    this.setState({ lists: lists });
+  }
+
+  handleDeleteList(listName) {
+    console.log("Delete List 1", listName);
+    let lists = this.state.lists.filter((l) => l !== listName);
+    this.setState({ lists: lists });
+    console.log("Delete List 2");
+  }
 
   render() {
     return (
-      <div>
-        <Sidebar lists={this.state.lists} onAddList={() => this.handleAddList()} />
+      <div className="App">
+        <Sidebar
+          lists={this.state.lists}
+          onAddList={(newName) => this.handleAddList(newName)}
+          onDeleteList={(listName) => this.handleDeleteList(listName)}
+        />
       </div>
     );
   }

@@ -1,20 +1,47 @@
 import React, { Component } from "react";
-import '../App.css';
+import "./AddList.css";
 
 class AddList extends Component {
-  state = {listName:"test"};
+  state = { listName: "" };
 
-  handleInput(newName)
-  {
-    let {listName} = this.state;
-    listName = newName;
-    this.setState({listName:listName});
-  }
+  handleChange = (event) => {
+    this.setState({ listName: event.target.value });
+  };
+
+  handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      this.props.onAddList(this.state.listName);
+      this.setState({
+        listName: "",
+      });
+    }
+  };
+
+  handleClick = () => {
+    this.props.onAddList(this.state.listName);
+    this.setState({
+      listName: "",
+    });
+  };
+
   render() {
     return (
-      <div>
-        <input type="text" placeholder="Type list name here" onChange= {(c)=>this.handleInput(c)}></input>
-        <button className="btn btn-success btn-lg" onClick = {() =>this.props.onAddList()}>Add</button>
+      <div className="inLine">
+        <input
+          value={this.state.listName}
+          type="text"
+          placeholder="Type list name here"
+          onChange={(c) => this.handleChange(c)}
+          onKeyPress={this.handleKeyPress}
+          className="textBox"
+        ></input>
+
+        <button
+          onClick={this.handleClick}
+          className="btn btn-primary addButton"
+        >
+          ✓
+        </button>
       </div>
     );
   }
