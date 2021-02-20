@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import Sidebar from "./components/Sidebar";
+import DB from "./db";
 
 class App extends Component {
   state = { lists: [] };
@@ -23,14 +22,12 @@ class App extends Component {
     console.log("Delete List 1", listName);
     let lists = this.state.lists.filter((l) => l !== listName);
     this.setState({ lists: lists });
-    console.log("Delete List 2");
   }
 
   render() {
-    const fs = require('fs-extra')
-    const ini = require('ini')
-
-    const config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'));
+    const db = new DB();
+    //db.connect();
+    //db.getListNames();
     
 
 
