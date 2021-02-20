@@ -27,6 +27,13 @@ class App extends Component {
   }
 
   render() {
+    const fs = require('fs-extra')
+    const ini = require('ini')
+
+    const config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'));
+    
+
+
     return (
       <div className="App">
         <Sidebar
