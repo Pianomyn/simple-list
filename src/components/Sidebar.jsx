@@ -8,7 +8,7 @@ class Sidebar extends Component {
   render() {
     return (
       <div className = "sideBarBox">
-        <AllLists lists={this.props.lists} onDeleteList={(listName) => this.props.onDeleteList(listName)}/>
+        <AllLists lists={this.props.lists} onDeleteList={(listName) => this.props.onDeleteList(listName)} onClickedList = {(listName) => this.props.onClickedList(listName)}/>
         <AddList onAddList={(newName) => this.props.onAddList(newName)} />
       </div>
     );

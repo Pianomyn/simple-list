@@ -31,12 +31,21 @@ app.listen(port, () => {
   console.log("Express is listening on port 5000");
 });
 
-//GET Fetch DB info for initialisation of app
+//GET Fetch stored list names for initialisation of app
 app.get("/initialise", (req, res) => {
-  connection.query(`SELECT name FROM list_names`, function (err, result, fields) {
-    if (err) throw err;
-    res.send(result);
-  });
+  connection.query(
+    `CREATE TABLE IF NOT EXISTS list_names(name VARCHAR(50), is_empty int)`,
+    function (err, result, fields) {
+      if (err) throw err;
+    }
+  );
+  connection.query(
+    `SELECT name FROM list_names`,
+    function (err, result, fields) {
+      if (err) throw err;
+      res.send(result);
+    }
+  );
 });
 
 //POST Delete a single list from the database
@@ -44,6 +53,12 @@ app.post("/delete_list", (req, res) => {
   const receivedName = req.body.listName;
   connection.query(
     `DELETE FROM list_names WHERE name = '${receivedName}'`,
+    function (err, result, fields) {
+      if (err) throw err;
+    }
+  );
+  connection.query(
+    `DROP TABLE IF EXISTS ${receivedName}`,
     function (err, result, fields) {
       if (err) throw err;
     }
@@ -60,5 +75,24 @@ app.post("/add_list", (req, res) => {
       if (err) throw err;
     }
   );
+
+  connection.query(
+    `CREATE TABLE IF NOT EXISTS ${receivedName}(list_item varchar(50) PRIMARY KEY, completed int)`,
+    function (err, result, fields) {
+      if (err) throw err;
+    }
+  );
   res.sendStatus(200);
+});
+
+//GET Get all list elements for a list
+app.get("/get_items", (req, res) => {
+  const receivedName = req.query.listName;
+  connection.query(
+  `SELECT list_item from ${receivedName}`,
+  function (err, result, fields) {
+   if (err) throw err;
+    res.send(result);
+   }
+   );
 });

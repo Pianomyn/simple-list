@@ -1,17 +1,37 @@
 import React, { Component } from "react";
+import './App.css'
 import Sidebar from "./components/Sidebar";
+import AllReminders from "./components/AllReminders";
 import axios from "axios";
 
 class App extends Component {
-  state = { lists: [] };
+  state = { lists: [], currentlySelected: "A list hasn't been selected" };
 
   componentDidMount() {
     axios.get("http://localhost:5000/initialise").then((res) => {
       console.log("logging res", res);
-      var initialList = this.state.lists;
-      res.data.forEach(l => {console.log(l.name);initialList.push(l.name)})
-      this.setState({ initialList: this.state.lists });
+      var initialLists = this.state.lists;
+      res.data.forEach((l) => {
+        console.log(l.name);
+        initialLists.push(l.name);
+      });
+      this.setState({ initialLists: this.state.lists });
     });
+  }
+
+  handleClickedList(listName) {
+    console.log(listName)
+    var { currentlySelected } = this.state;
+    currentlySelected = listName;
+    this.setState({ currentlySelected: currentlySelected });
+
+    //Retrieve all list elements for this list title
+    var config = {params: {
+      listName: listName
+    }}
+    axios.get('http://localhost:5000/get_items', config).then((res) => {
+      console.log("logging res", res)})
+    
   }
 
   handleAddList(newName) {
@@ -26,11 +46,7 @@ class App extends Component {
       : lists.push(newName);
     this.setState({ lists: lists });
 
-    //Need to add new list name to the database
-    //this.postData(newName);
     axios.post("/add_list", { newName: newName });
-
-    //fetch('http://localhost:5000/').then(response => { return response.text()}).then(data => console.log(data))
   }
 
   handleDeleteList(listName) {
@@ -46,9 +62,11 @@ class App extends Component {
       <div className="App">
         <Sidebar
           lists={this.state.lists}
+          onClickedList={(listName) => this.handleClickedList(listName)}
           onAddList={(newName) => this.handleAddList(newName)}
           onDeleteList={(listName) => this.handleDeleteList(listName)}
         />
+        <AllReminders currentlySelected={this.state.currentlySelected} />
       </div>
     );
   }
