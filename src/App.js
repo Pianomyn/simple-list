@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar";
-import DB from "./db";
+import axios from 'axios'
 
 class App extends Component {
   state = { lists: [] };
@@ -16,6 +16,20 @@ class App extends Component {
       ? console.log("A list with this name already exists")
       : lists.push(newName);
     this.setState({ lists: lists });
+
+    //Need to add new list name to the database
+    //this.postData(newName);
+    axios.post('/add',{newName:newName}).then()
+      
+    //fetch('http://localhost:5000/').then(response => { return response.text()}).then(data => console.log(data))
+  }
+
+    postData(newName) {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({newName:newName})
+    };
+    const response =   fetch("http://localhost:5000/add", options);
   }
 
   handleDeleteList(listName) {
@@ -25,11 +39,6 @@ class App extends Component {
   }
 
   render() {
-    const db = new DB();
-    //db.connect();
-    //db.getListNames();
-    
-
 
     return (
       <div className="App">
