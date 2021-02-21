@@ -14,10 +14,10 @@ const port = 5000;
 
 const app = express();
 app.use(cors());
-//app.use(bodyParser.urlencoded());
-// parse application/json
 app.use(bodyParser.json());
 
+//Create a connection to the DB
+//Express set to port 5000
 connection.connect((err) => {
   if (err) {
     console.log("Error connecting to Db");
@@ -31,15 +31,29 @@ app.listen(port, () => {
   console.log("Express is listening on port 5000");
 });
 
-app.get("/", (req, res) => res.send("api working"));
+//GET Fetch DB info for initialisation of app
+app.get("/intialise", (req, res) => res.send("api working"));
 
-app.post("/add", (req, res) => {
-  const receivedName = req.body.newName
+//POST Delete a single list from the database
+app.post("/delete_list", (req, res) => {
+  const receivedName = req.body.listName;
   connection.query(
-    `INSERT INTO list_names VALUES('${receivedName}')`,
+    `DELETE FROM list_names WHERE name = '${receivedName}'`,
     function (err, result, fields) {
       if (err) throw err;
     }
   );
-  res.send(200);
+  res.sendStatus(200);
+});
+
+//POST Add a single list name to the database
+app.post("/add_list", (req, res) => {
+  const receivedName = req.body.newName;
+  connection.query(
+    `INSERT INTO list_names VALUES('${receivedName}', 1)`,
+    function (err, result, fields) {
+      if (err) throw err;
+    }
+  );
+  res.sendStatus(200);
 });

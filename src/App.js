@@ -5,6 +5,11 @@ import axios from 'axios'
 class App extends Component {
   state = { lists: [] };
 
+  componentDidMount()
+  {
+    axios.get('/initialise')
+  }
+  
   handleAddList(newName) {
     console.log(newName);
     if (newName === "") {
@@ -19,23 +24,17 @@ class App extends Component {
 
     //Need to add new list name to the database
     //this.postData(newName);
-    axios.post('/add',{newName:newName}).then()
+    axios.post('/add_list',{newName:newName})
       
     //fetch('http://localhost:5000/').then(response => { return response.text()}).then(data => console.log(data))
-  }
-
-    postData(newName) {
-    const options = {
-      method: "POST",
-      body: JSON.stringify({newName:newName})
-    };
-    const response =   fetch("http://localhost:5000/add", options);
   }
 
   handleDeleteList(listName) {
     console.log("Delete List 1", listName);
     let lists = this.state.lists.filter((l) => l !== listName);
     this.setState({ lists: lists });
+
+    axios.post('/delete_list', {listName:listName})
   }
 
   render() {
