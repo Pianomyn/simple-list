@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar";
-import axios from 'axios'
+import axios from "axios";
 
 class App extends Component {
   state = { lists: [] };
 
-  componentDidMount()
-  {
-    axios.get('/initialise')
+  componentDidMount() {
+    axios.get("http://localhost:5000/initialise").then((res) => {
+      console.log("logging res", res);
+      var initialList = this.state.lists;
+      res.data.forEach(l => {console.log(l.name);initialList.push(l.name)})
+      this.setState({ initialList: this.state.lists });
+    });
   }
-  
+
   handleAddList(newName) {
     console.log(newName);
     if (newName === "") {
@@ -24,8 +28,8 @@ class App extends Component {
 
     //Need to add new list name to the database
     //this.postData(newName);
-    axios.post('/add_list',{newName:newName})
-      
+    axios.post("/add_list", { newName: newName });
+
     //fetch('http://localhost:5000/').then(response => { return response.text()}).then(data => console.log(data))
   }
 
@@ -34,11 +38,10 @@ class App extends Component {
     let lists = this.state.lists.filter((l) => l !== listName);
     this.setState({ lists: lists });
 
-    axios.post('/delete_list', {listName:listName})
+    axios.post("/delete_list", { listName: listName });
   }
 
   render() {
-
     return (
       <div className="App">
         <Sidebar

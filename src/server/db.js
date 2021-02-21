@@ -32,7 +32,12 @@ app.listen(port, () => {
 });
 
 //GET Fetch DB info for initialisation of app
-app.get("/intialise", (req, res) => res.send("api working"));
+app.get("/initialise", (req, res) => {
+  connection.query(`SELECT name FROM list_names`, function (err, result, fields) {
+    if (err) throw err;
+    res.send(result);
+  });
+});
 
 //POST Delete a single list from the database
 app.post("/delete_list", (req, res) => {
@@ -50,7 +55,7 @@ app.post("/delete_list", (req, res) => {
 app.post("/add_list", (req, res) => {
   const receivedName = req.body.newName;
   connection.query(
-    `INSERT INTO list_names VALUES('${receivedName}', 1)`,
+    `INSERT INTO list_names VALUES('${receivedName}', 1) ON DUPLICATE KEY UPDATE name = '${receivedName}'`,
     function (err, result, fields) {
       if (err) throw err;
     }
