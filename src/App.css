@@ -1,1 +1,10 @@
-.App{display:flex; flex-direction:row;}
+.App {
+  display: flex;
+  flex-direction: row;
+}
+
+.listHeading {
+  height: 10vh;
+  width: 100%;
+  text-align: center;
+}

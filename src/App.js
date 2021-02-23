@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import './App.css'
+import "./App.css";
 import Sidebar from "./components/Sidebar";
 import AllReminders from "./components/AllReminders";
 import axios from "axios";
 
 class App extends Component {
-  state = { lists: [], currentlySelected: "A list hasn't been selected" };
+  state = {
+    lists: [],
+    currentlySelected: "A list hasn't been selected",
+    listElements: [],
+  };
 
   componentDidMount() {
     axios.get("http://localhost:5000/initialise").then((res) => {
@@ -20,17 +24,33 @@ class App extends Component {
   }
 
   handleClickedList(listName) {
-    console.log(listName)
+    console.log(listName);
     var { currentlySelected } = this.state;
     currentlySelected = listName;
-    this.setState({ currentlySelected: currentlySelected });
 
-    //Retrieve all list elements for this list title
-    var config = {params: {
-      listName: listName
-    }}
-    axios.get('http://localhost:5000/get_items', config).then((res) => {
-      console.log("logging res", res)})
+    var {listElements} = this.state;
+    while(listElements.length !==0)
+    {
+      listElements.pop();
+    }
+
+    
+    var config = {
+      params: {
+        listName: listName,
+      },
+    };
+    
+    axios.get("http://localhost:5000/get_items", config).then((res) => {
+      console.log("logging res", res);
+      res.data.forEach((l) => {
+        listElements.push(l.list_item);
+      });
+      console.log('logging from handleclick method inside http request',listElements);
+      this.setState({ listElements});
+    });
+    this.setState({ currentlySelected});
+    
     
   }
 
@@ -58,6 +78,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('logging from render',this.state.listElements);
     return (
       <div className="App">
         <Sidebar
@@ -66,7 +87,7 @@ class App extends Component {
           onAddList={(newName) => this.handleAddList(newName)}
           onDeleteList={(listName) => this.handleDeleteList(listName)}
         />
-        <AllReminders currentlySelected={this.state.currentlySelected} />
+        <AllReminders currentlySelected={this.state.currentlySelected} listElements={this.state.listElements}/>
       </div>
     );
   }
