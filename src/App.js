@@ -70,9 +70,14 @@ class App extends Component {
 
   handleDeleteList(listName) {
     console.log("Delete List 1", listName);
+    var {currentlySelected} = this.state;
+    var {listElements} = this.state;
+    currentlySelected = ""
+    listElements = [];
     var lists = this.state.lists.filter((l) => l !== listName);
     this.setState({ lists: lists });
-
+    this.setState({currentlySelected})
+    this.setState({listElements})
     axios.post("/delete_list", { listName: listName });
   }
 

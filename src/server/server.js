@@ -58,7 +58,7 @@ app.post("/delete_list", (req, res) => {
     }
   );
   connection.query(
-    `DROP TABLE IF EXISTS ${receivedName}`,
+    `DROP TABLE IF EXISTS \`${receivedName}\``,
     function (err, result, fields) {
       if (err) throw err;
     }
@@ -89,7 +89,7 @@ app.post("/add_list", (req, res) => {
 app.get("/get_items", (req, res) => {
   const receivedName = req.query.listName;
   connection.query(
-    `SELECT list_item from ${receivedName}`,
+    `SELECT list_item from \`${receivedName}\``,
     function (err, result, fields) {
       if (err) throw err;
       res.send(result);
@@ -102,7 +102,7 @@ app.post("/add_reminder", (req, res) => {
   const receivedReminder = req.body.reminderName;
   const listName = req.body.listName;
   connection.query(
-    `INSERT INTO ${listName} VALUES('${receivedReminder}', 1) ON DUPLICATE KEY UPDATE name = '${receivedReminder}'`,
+    `INSERT INTO \`${listName}\` VALUES('${receivedReminder}', 1) ON DUPLICATE KEY UPDATE list_item = '${receivedReminder}'`,
     function (err, result, fields) {
       if (err) throw err;
     }
@@ -115,7 +115,7 @@ app.post("/delete_reminder", (req, res) => {
   const receivedReminder = req.body.reminderName;
   const listName = req.body.listName;
   connection.query(
-    `DELETE FROM ${listName} WHERE list_item = '${receivedReminder}'`,
+    `DELETE FROM \`${listName}\` WHERE list_item = '${receivedReminder}'`,
     function (err, result, fields) {
       if (err) throw err;
     }

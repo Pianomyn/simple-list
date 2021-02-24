@@ -27,7 +27,7 @@ class AddReminder extends Component {
     render() { 
         return ( <div className="inLine">
         <input
-          value={this.state.renderName}
+          value={this.state.reminderName}
           type="text"
           placeholder="Type reminder here"
           onChange={(c) => this.handleChange(c)}
