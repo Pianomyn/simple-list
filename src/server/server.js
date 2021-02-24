@@ -77,7 +77,7 @@ app.post("/add_list", (req, res) => {
   );
 
   connection.query(
-    `CREATE TABLE IF NOT EXISTS ${receivedName}(list_item varchar(50) PRIMARY KEY, completed int)`,
+    `CREATE TABLE IF NOT EXISTS \`${receivedName}\`(list_item varchar(50) PRIMARY KEY, completed int)`,
     function (err, result, fields) {
       if (err) throw err;
     }

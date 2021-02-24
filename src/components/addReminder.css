@@ -1,4 +1,4 @@
-.inputBox{width:95%;height:41px}
+.inputBox{width:85%;height:41px;margin-left:5%;text-align:center}
 .deleteButton{width:5%;height:41px}
 .inLine {
     display: flex;

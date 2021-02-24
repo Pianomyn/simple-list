@@ -14,14 +14,15 @@
 .listHeading {
   text-align: center;
   width:95%;
-  height:8%
+  height:77px
 }
 
 .listElements {
   margin-top:3px;
-  width:95%;
+  width:85%;
   border-radius: 0 !important;
   height:41px;
+  margin-left:5%
 }
 
 .listElementsDelete {

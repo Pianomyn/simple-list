@@ -22,8 +22,9 @@ class AllLists extends Component {
         {this.props.lists.map((list) => (
           <div key={list}>
             <button
-              onClick={() => this.props.onClickedList(list)}
-              className={this.renderClassName(list)}
+              onClick={() => {this.props.onClickedList(list);}}
+              className={this.renderClassName(list) }
+              style = {{'box-shadow':'none'}}
             >
               {list}
             </button>
