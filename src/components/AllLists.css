@@ -5,9 +5,13 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   border-radius: 0 !important;
+  margin-bottom:3px;
+  height:41px
 }
 
 .deleteButton {
     width: 12%;
     border-radius: 0 !important;
+    margin-bottom:3px;
+    
   }

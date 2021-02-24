@@ -9,13 +9,14 @@ class AllLists extends Component {
       return <p>There are currently no lists!</p>;
 
     return (
-      <div className="list-group ">
+      <div className="list-group">
         {this.props.lists.map((list) => (
           <div key={list}>
-            <button onClick={() => this.props.onClickedList(list)} className="sideBarList btn btn-dark">{list}</button>
+            <button onClick={() => this.props.onClickedList(list)} className="sideBarList btn btn-dark">{list}</button> 
             <button
               onClick={() => this.props.onDeleteList(list)}
-              className="deleteButton btn btn-danger"
+              className=" btn btn-danger deleteButton"
+              style={{width:'12%'}}
             >
               X
             </button>

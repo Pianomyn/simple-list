@@ -7,7 +7,7 @@ import axios from "axios";
 class App extends Component {
   state = {
     lists: [],
-    currentlySelected: "A list hasn't been selected",
+    currentlySelected: "",
     listElements: [],
   };
 
@@ -28,30 +28,29 @@ class App extends Component {
     var { currentlySelected } = this.state;
     currentlySelected = listName;
 
-    var {listElements} = this.state;
-    while(listElements.length !==0)
-    {
+    var { listElements } = this.state;
+    while (listElements.length !== 0) {
       listElements.pop();
     }
 
-    
     var config = {
       params: {
         listName: listName,
       },
     };
-    
+
     axios.get("http://localhost:5000/get_items", config).then((res) => {
       console.log("logging res", res);
       res.data.forEach((l) => {
         listElements.push(l.list_item);
       });
-      console.log('logging from handleclick method inside http request',listElements);
-      this.setState({ listElements});
+      console.log(
+        "logging from handleclick method inside http request",
+        listElements
+      );
+      this.setState({ listElements });
     });
-    this.setState({ currentlySelected});
-    
-    
+    this.setState({ currentlySelected });
   }
 
   handleAddList(newName) {
@@ -71,14 +70,41 @@ class App extends Component {
 
   handleDeleteList(listName) {
     console.log("Delete List 1", listName);
-    let lists = this.state.lists.filter((l) => l !== listName);
+    var lists = this.state.lists.filter((l) => l !== listName);
     this.setState({ lists: lists });
 
     axios.post("/delete_list", { listName: listName });
   }
 
+  handleAddReminder(reminderName) {
+    if (reminderName === "") {
+      console.log("A reminder cannot be empty");
+      return;
+    }
+    var { listElements } = this.state;
+
+    listElements
+      .map((l) => l.toLowerCase())
+      .includes(reminderName.toLowerCase())
+      ? console.log("A list with this name already exists")
+      : listElements.push(reminderName);
+    //var config = {}
+    this.setState({ listElements });
+    axios.post("/add_reminder", {
+      listName: this.state.currentlySelected,
+      reminderName: reminderName,
+    });
+  }
+
+  handleDeleteReminder(reminderName) {
+    var listElements = this.state.listElements.filter((r) => r !== reminderName)
+    this.setState({ listElements });
+
+    axios.post("/delete_reminder", { listName:this.state.currentlySelected,reminderName: reminderName });
+  }
+
   render() {
-    console.log('logging from render',this.state.listElements);
+    console.log("logging from render", this.state.listElements);
     return (
       <div className="App">
         <Sidebar
@@ -87,7 +113,14 @@ class App extends Component {
           onAddList={(newName) => this.handleAddList(newName)}
           onDeleteList={(listName) => this.handleDeleteList(listName)}
         />
-        <AllReminders currentlySelected={this.state.currentlySelected} listElements={this.state.listElements}/>
+        <AllReminders
+          currentlySelected={this.state.currentlySelected}
+          listElements={this.state.listElements}
+          onAddReminder={(reminderName) => this.handleAddReminder(reminderName)}
+          onDeleteReminder={(reminderName) =>
+            this.handleDeleteReminder(reminderName)
+          }
+        />
       </div>
     );
   }

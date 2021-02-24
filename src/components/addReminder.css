@@ -1,0 +1,6 @@
+.inputBox{width:95%;height:41px}
+.deleteButton{width:5%;height:41px}
+.inLine {
+    display: flex;
+    flex-direction: row;
+  }
