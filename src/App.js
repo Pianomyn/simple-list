@@ -108,6 +108,7 @@ class App extends Component {
     return (
       <div className="App">
         <Sidebar
+          currentlySelected = {this.state.currentlySelected}
           lists={this.state.lists}
           onClickedList={(listName) => this.handleClickedList(listName)}
           onAddList={(newName) => this.handleAddList(newName)}

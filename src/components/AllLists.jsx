@@ -4,6 +4,15 @@ import "./AllLists.css";
 class AllLists extends Component {
   state = {};
 
+  renderClassName(listName) {
+    let cName = "sideBarList btn btn-";
+
+    listName === this.props.currentlySelected
+      ? (cName += "light")
+      : (cName += "dark");
+    return cName;
+  }
+
   renderListNames() {
     if (this.props.lists.length === 0)
       return <p>There are currently no lists!</p>;
@@ -12,11 +21,16 @@ class AllLists extends Component {
       <div className="list-group">
         {this.props.lists.map((list) => (
           <div key={list}>
-            <button onClick={() => this.props.onClickedList(list)} className="sideBarList btn btn-dark">{list}</button> 
+            <button
+              onClick={() => this.props.onClickedList(list)}
+              className={this.renderClassName(list)}
+            >
+              {list}
+            </button>
             <button
               onClick={() => this.props.onDeleteList(list)}
               className=" btn btn-danger deleteButton"
-              style={{width:'12%'}}
+              style={{ width: "12%" }}
             >
               X
             </button>

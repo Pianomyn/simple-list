@@ -5,11 +5,6 @@ import AddReminder from "./AddReminder";
 class AllReminders extends Component {
   state = { reminders: [], previouslySelected: "" };
 
-  handleChange()
-  {
-
-  }
-
   renderAddReminders()
   {
     console.log('renderaddreminders',this.props.currentlySelected)
