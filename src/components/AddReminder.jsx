@@ -1,31 +1,32 @@
-import React, { Component } from 'react';
-import './AddReminder.css'
+import React, { Component } from "react";
+import "./AddReminder.css";
 
 class AddReminder extends Component {
-    state = { reminderName:"" }
-    
-    handleChange = (event) => {
-        this.setState({ reminderName: event.target.value });
-      };
-    
-      handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-          this.props.onAddReminder(this.state.reminderName);
-          this.setState({
-            reminderName: "",
-          });
-        }
-      };
-    
-      handleClick = () => {
-        this.props.onAddReminder(this.state.reminderName);
-        this.setState({
-          reminderName: "",
-        });
-      };
+  state = { reminderName: "" };
 
-    render() { 
-        return ( <div className="inLine">
+  handleChange = (event) => {
+    this.setState({ reminderName: event.target.value });
+  };
+
+  handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      this.props.onAddReminder(this.state.reminderName);
+      this.setState({
+        reminderName: "",
+      });
+    }
+  };
+
+  handleClick = () => {
+    this.props.onAddReminder(this.state.reminderName);
+    this.setState({
+      reminderName: "",
+    });
+  };
+
+  render() {
+    return (
+      <div className="inLine">
         <button
           onClick={this.handleClick}
           className="btn btn-primary addButton deleteButton"
@@ -40,10 +41,9 @@ class AddReminder extends Component {
           onKeyPress={this.handleKeyPress}
           className="inputBox"
         ></input>
-
-        
-      </div> );
-    }
+      </div>
+    );
+  }
 }
- 
+
 export default AddReminder;

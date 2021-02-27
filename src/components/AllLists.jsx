@@ -34,11 +34,10 @@ class AllLists extends Component {
                 this.props.onClickedList(list);
               }}
               className={this.renderClassName(list)}
-              style = {{'box-shadow':"none"}}
+              style={{ "box-shadow": "none" }}
             >
               {list}
             </button>
-            
 
             <br />
           </div>

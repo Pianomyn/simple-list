@@ -41,9 +41,6 @@ class AddList extends Component {
           onKeyPress={this.handleKeyPress}
           className="textBox"
         ></input>
-        
-
-        
       </div>
     );
   }

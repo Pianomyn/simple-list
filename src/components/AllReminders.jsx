@@ -30,7 +30,7 @@ class AllReminders extends Component {
                 X
               </button>
               <button className="btn btn-dark listElements">{reminder}</button>
-              
+
               <br />
             </div>
           ))}
