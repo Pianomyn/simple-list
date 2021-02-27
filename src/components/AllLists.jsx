@@ -5,11 +5,13 @@ class AllLists extends Component {
   state = {};
 
   renderClassName(listName) {
-    let cName = "sideBarList btn btn-";
+    let cName = "btn btn-";
 
     listName === this.props.currentlySelected
       ? (cName += "light")
       : (cName += "dark");
+
+    cName += " sideBarList";
     return cName;
   }
 
@@ -20,21 +22,24 @@ class AllLists extends Component {
     return (
       <div className="list-group">
         {this.props.lists.map((list) => (
-          <div key={list}>
-            <button
-              onClick={() => {this.props.onClickedList(list);}}
-              className={this.renderClassName(list) }
-              style = {{'box-shadow':'none'}}
-            >
-              {list}
-            </button>
+          <div key={list} className="inLine">
             <button
               onClick={() => this.props.onDeleteList(list)}
-              className=" btn btn-danger deleteButton"
-              style={{ width: "12%" }}
+              className=" btn btn-danger deleteListButton"
             >
               X
             </button>
+            <button
+              onClick={() => {
+                this.props.onClickedList(list);
+              }}
+              className={this.renderClassName(list)}
+              style = {{'box-shadow':"none"}}
+            >
+              {list}
+            </button>
+            
+
             <br />
           </div>
         ))}

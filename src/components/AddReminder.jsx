@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './addReminder.css'
+import './AddReminder.css'
 
 class AddReminder extends Component {
     state = { reminderName:"" }
@@ -26,6 +26,12 @@ class AddReminder extends Component {
 
     render() { 
         return ( <div className="inLine">
+        <button
+          onClick={this.handleClick}
+          className="btn btn-primary addButton deleteButton"
+        >
+          ✓
+        </button>
         <input
           value={this.state.reminderName}
           type="text"
@@ -35,12 +41,7 @@ class AddReminder extends Component {
           className="inputBox"
         ></input>
 
-        <button
-          onClick={this.handleClick}
-          className="btn btn-primary addButton deleteButton"
-        >
-          ✓
-        </button>
+        
       </div> );
     }
 }

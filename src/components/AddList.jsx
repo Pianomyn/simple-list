@@ -27,6 +27,12 @@ class AddList extends Component {
   render() {
     return (
       <div className="inLine">
+        <button
+          onClick={this.handleClick}
+          className="btn btn-primary addButton"
+        >
+          ✓
+        </button>
         <input
           value={this.state.listName}
           type="text"
@@ -35,13 +41,9 @@ class AddList extends Component {
           onKeyPress={this.handleKeyPress}
           className="textBox"
         ></input>
+        
 
-        <button
-          onClick={this.handleClick}
-          className="btn btn-primary addButton"
-        >
-          ✓
-        </button>
+        
       </div>
     );
   }

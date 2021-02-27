@@ -1,6 +1,15 @@
-.inputBox{width:85%;height:41px;margin-left:5%;text-align:center}
-.deleteButton{width:5%;height:41px}
+.inputBox {
+  width: 85%;
+  height: 41px;
+  
+  text-align: center;
+}
+.deleteButton {
+  width: 5%;
+  height: 41px;
+  margin-left: 5%;
+}
 .inLine {
-    display: flex;
-    flex-direction: row;
-  }
+  display: flex;
+  flex-direction: row;
+}

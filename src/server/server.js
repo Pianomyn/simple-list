@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 //Express set to port 5000
 connection.connect((err) => {
   if (err) {
-    console.log("Error connecting to Db");
+    console.log("Error connecting to DB");
     console.log(err);
   } else {
     console.log("Connection established with DB");

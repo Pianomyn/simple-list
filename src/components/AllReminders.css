@@ -22,7 +22,8 @@
   width:85%;
   border-radius: 0 !important;
   height:41px;
-  margin-left:5%
+  box-shadow:none;
+  
 }
 
 .listElementsDelete {
@@ -30,4 +31,5 @@
   width:5%;
   border-radius: 0 !important;
   height:41px;
+  margin-left:5%
 }
