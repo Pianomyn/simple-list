@@ -4,10 +4,11 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const connection = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: "list_db",
+  host: "seartenmdb.crtkt9pfprmx.us-east-2.rds.amazonaws.com",
+  user: "admin",
+  password: "SeartenMarketplaceftw2021",
+  database: "seartendb",
+    port: "3306"
 });
 
 const port = 5000;
