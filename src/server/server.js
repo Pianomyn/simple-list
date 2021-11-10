@@ -7,7 +7,7 @@ const connection = mysql.createConnection({
   host: "seartenmdb.crtkt9pfprmx.us-east-2.rds.amazonaws.com",
   user: "admin",
   password: "SeartenMarketplaceftw2021",
-  database: "listdb",
+  database: "simplelistdb",
     port: "3306"
 });
 
